@@ -1,0 +1,39 @@
+<%# - On the Car Show page, users should be able to leave a new review.
+Implement a form (simple_form) that allows users to submit new reviews. %>
+<%# - On the Car Show page, users should be able to read all the existing reviews. %>
+
+<%# On the Car Show page, users should be able to save a car to their favourites.
+Implement a form (simple_form) that allows users to create a new favourite.
+Each car can only be favourited once!   %>
+
+<%# - Users can navigate to the path '/favourites' and see all the favourited cars. %>
+<%# - Each car can be removed from the favourites list by clicking on a 'delete' button %>
+
+<h1><%= @car.model %></h1>
+
+<ul class="cars-info">
+    <li><%= @car.brand %></li>
+    <li><%= @car.model %></li>
+    <li><%= @car.year %></li>
+    <li><%= @car.fuel %></li>
+  <li><%= @car.owner.nickname %></li>
+</ul>
+
+<%= simple_form_for [@car, @review] do |f| %>
+  <%= f.input :comment, placeholder: "Comment..." %>
+  <%= f.input :rating, collection: 0..5  %>
+  <%= f.submit %>
+<% end %>
+
+ <% @car.reviews.each do |review| %>
+    <p><%= review.comment %></p>
+    <p><%= '⭐️' * review.rating %></p>
+  <% end %>
+
+<% if @car.favourites.empty? %>
+  <%= simple_form_for [@car, @favourite] do |f| %>
+    <%= f.submit 'Save to my Garage' %>
+  <% end %>
+<% else %>
+  <p>This car is in your garage!</p>
+<% end %>

@@ -1,0 +1,9 @@
+<h1>Cars</h1>
+
+  <% @cars.each do |car| %>
+    <h3><%= car.brand %></h3>
+    <h4><%= car.model %></h4>
+    <%= link_to "Details", car_path(car) %>
+  <% end %>
+
+<%# car.owner.nickname %>
